@@ -17,6 +17,7 @@ describe('tests with initial poem', () => {
     await Poem.deleteMany({})
 
     const user = await userHelper.createUser(userHelper.initialUsers[0])
+    const user2 = await userHelper.createUser(userHelper.initialUsers[1])
     await poemHelper.createPoem({ ...poemHelper.linkedPoem[0], user: user._id })
   })
   test('post two new links to initial poem', async () => {

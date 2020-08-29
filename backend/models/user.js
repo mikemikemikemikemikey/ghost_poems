@@ -15,6 +15,13 @@ const userSchema = new mongoose.Schema({
       ref: 'Poem',
     },
   ],
+  likedPoems: [
+    {
+      type: mongoose.SchemaTypes.ObjectID,
+      ref: 'Poem',
+    },
+  ],
+
   passwordHash: String,
 })
 

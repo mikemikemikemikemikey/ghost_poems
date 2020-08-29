@@ -6,8 +6,8 @@ mongoose.set('useCreateIndex', true)
 
 const poemSchema = new mongoose.Schema({
 
-  title: String,
-  content: String,
+  title: { type: String, maxlength: 50 },
+  content: { type: String, maxlength: 100 },
   likes: { type: Number, default: 0 },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,7 @@ const poemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Poem',
   }],
-})
+}, { timestamps: true })
 
 poemSchema.set('toJson', {
   transform: (document, returnedObject) => {

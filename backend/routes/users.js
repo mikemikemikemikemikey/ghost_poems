@@ -20,7 +20,11 @@ usersRouter.post('/', async (request, response) => {
 
   response.json(savedUser)
 })
-
+usersRouter.get('/:username', async (request, response) => {
+  const user = await User.findOne({ username: request.params.username})
+    .populate('poems')
+  response.json(user)
+})
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({}).populate('poems')
   response.json(users)
