@@ -4,6 +4,8 @@ const poemReducer = (state =[], action) => {
   switch(action.type){
     case 'INIT':
       return action.poems
+    case 'UPDATE':
+      return action.poems
     default:
       return state
     }

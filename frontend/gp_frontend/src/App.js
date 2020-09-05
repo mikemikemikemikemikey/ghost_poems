@@ -1,25 +1,28 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
+import Select from 'react-styled-select'
+import { Switch, Route, Link } from 'react-router-dom'
 import { initializePoems } from './reducers/poemReducer'
 import Poem from './components/Poem'
 import Login from './components/Login'
 import About from './components/About'
-import Select from './components/Select'
 import Notification from './components/Notification'
+import CreateUser from './components/CreateUser'
 import poemService from './services/poems'
 import { loginUser, logoutUser } from './reducers/userReducer'
-
-import { Switch, Route, Link, useParams, useHistory } from 'react-router-dom'
 import NewPoem from './components/NewPoem'
-import { Navbar, Nav} from 'react-bootstrap'
+import { Button } from './components/Style'
 import { removeMessage } from './reducers/messageReducer'
+import ghostraps from './images/GhostRaps.gif'
+import spaceghost from './images/spaceghost_purp2.jpg'
+
 function App() {
   const dispatch = useDispatch()
-  const message = useSelector(state => state.message)
-  const poems = useSelector(state => state.poems)
-  const user = useSelector(state => state.user)
-  const [sort, setSort] = useState('top')
+  const message = useSelector((state) => state.message)
+  const poems = useSelector((state) => state.poems)
+  const user = useSelector((state) => state.user)
+  const [sort, setSort] = useState('new')
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedPoemUser')
@@ -29,12 +32,12 @@ function App() {
       poemService.setConfig(user.token)
     }
     dispatch(initializePoems())
-    if(message.message){
-     setTimeout(() => {
-    dispatch(removeMessage())
-     }, 5000) 
+    if (message.message) {
+      setTimeout(() => {
+        dispatch(removeMessage())
+      }, 5000)
     }
-  },[dispatch, message])
+  }, [dispatch, message])
 
   const handleLogout = () => {
     dispatch(logoutUser())
@@ -42,73 +45,111 @@ function App() {
     window.localStorage.removeItem('loggedPoemUser')
   }
   const sortTop = (poems) => {
-    poems.sort((a,b) => {
-      return b.likes - a.likes
-    })
+    poems.sort((a, b) => b.likes - a.likes)
     return poems
   }
   const sortNew = (poems) => {
-    poems.sort((a,b) => {
+    poems.sort((a, b) => {
       const da = new Date(a.updatedAt).getTime()
       const db = new Date(b.updatedAt).getTime()
       return db - da
     })
-   return poems
+    return poems
   }
 
-  const sortSelector = (poems, sort) =>{
-    if(sort === 'new') return sortNew(poems)
-    if(sort === 'top') return sortTop(poems)
+  const sortSelector = (poems, sort) => {
+    if (sort === 'new') return sortNew(poems)
+    if (sort === 'top') return sortTop(poems)
+  }
+  const handleChange = (value) => {
+    setSort(value)
   }
 
-  const padding = {
-    padding: 5
-  }
   return (
-    <div>
-      <Navbar  bg="dark" variant="dark">
-          <Nav className="mr-auto flex-row" >
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/">main</Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/new">new poem</Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              {user
-                ? <em >{user.username} logged in <button onClick={handleLogout} >logout</button></em>
-                : <Link to="/login">login</Link>
-              }
-            </Nav.Link>
-          </Nav>
-      </Navbar>
+    <div className="main-page">
+      <div className="left-col">
+        <div>
+
+          <img className="ghost-image title" src={ghostraps} alt="title" />
+
+          <div className="navigation">
+            <Link class="link" to="/" data-cy="link-home">home</Link>
+            <Link class="link" to="/new_rap" data-cy="link-new-rap">new rap</Link>
+            <Link class="link" to="/about">about</Link>
+            {user ? null : <Link class="link" to="/create_user" data-cy = 'link-new-user'>new user</Link>}
+            {user
+              ? (
+                <span className="header-span">
+                  {user.username}
+                  {' '}
+                  logged in
+                  {' '}
+                  <Button onClick={handleLogout}>logout</Button>
+                </span>
+              )
+              : <Link class="link" to="/login" data-cy = 'link-login'>login</Link>}
+          </div>
+
+          <div className="sort-bar">
+            <span className="sort-span"> sort... </span>
+            {' '}
+            <Select
+              className="dark-theme"
+              options={[{ label: 'new', value: 'new' }, { label: 'top', value: 'top' }]}
+              label="sort"
+              onChange={handleChange}
+              placeholder={sort}
+            />
+          </div>
+
+          <div className="ghost-div">
+            <img className="ghost-image" src={spaceghost} alt="ghost" />
+          </div>
+
+        </div>
+
+      </div>
+
       <Switch>
-        <Route path = '/login'>
-          <Login />
-        </Route>
-        <Route path = '/new'>
-          <NewPoem />
-        </Route>
-        <Route path = './about'>
-          <About />
-        </Route>
-        <Route path = '/'>
-          <h1>Ghost Raps</h1>
-          <Select options = {['new','top']} label = 'sort'
-           value = {sort} setValue = {setSort} />
-          <br></br>
-          <Notification message = {message} />
-          <div>
-          {sortSelector(poems, sort).map(p => 
-            <div key = {p._id}>
-            {!p.head ? <Poem poem = {p} /> : null}
-            <br></br>
-            </div>
-          )}
+        <Route path="/login">
+          <div className="side-content">
+            <Login />
           </div>
         </Route>
-        
+        <Route path="/new_rap">
+          <div className="side-content">
+            <NewPoem />
+          </div>
+        </Route>
+        <Route path="/about">
+          <div className="side-content">
+            <About />
+          </div>
+        </Route>
+        <Route path="/create_user">
+          <div className="side-content">
+            <CreateUser />
+          </div>
+        </Route>
+        <Route path="/">
+          <div className="home-page">
+
+            <p className="main-message">
+              <Notification message={message} />
+            </p>
+
+            <div>
+              {sortSelector(poems, sort).map((p) => (
+                <div key={p._id}>
+                  {!p.head ? <Poem poem={p} /> : null}
+                </div>
+              ))}
+            </div>
+          </div>
+        </Route>
+
       </Switch>
+
     </div>
   )
 }

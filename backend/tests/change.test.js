@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const { TestScheduler } = require('jest')
-const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const app = require('../app')
 const userHelper = require('./userHelper')
@@ -27,7 +26,7 @@ test('change content', async () => {
   const token = jwt.sign(userForToken, process.env.SECRET)
   const updatePoem = new Poem({ ...poem[0]._doc, content: 'changed line in poem' })
 
-  await api.put(`/api/poems/${poem[0]._id}/${false}`)
+  await api.put(`/api/poems/child/${poem[0]._id}/${false}`)
     .set('authorization', `bearer ${token}`)
     .send(updatePoem)
     .expect(200)

@@ -71,8 +71,16 @@ describe('tests with initial poem', () => {
   test('delete head', async () => {
     const users = await userHelper.usersInDb()
     const headPoem = await Poem.find({})
-    await poemHelper.createPoem({ ...poemHelper.linkedPoem[1], head: headPoem[0], user: users[0]._id })
-    await poemHelper.createPoem({ ...poemHelper.linkedPoem[2], head: headPoem[0], user: users[0]._id })
+    await poemHelper.createPoem({
+      ...poemHelper.linkedPoem[1],
+      head: headPoem[0],
+      user: users[0]._id,
+    })
+    await poemHelper.createPoem({
+      ...poemHelper.linkedPoem[2],
+      head: headPoem[0],
+      user: users[0]._id,
+    })
     const poemsBefore = await poemHelper.poemsInDb()
     const id = poemsBefore[0]._id.toString()
     const userForToken = {
@@ -99,7 +107,7 @@ describe('tests with initial poem', () => {
     const token = jwt.sign(userForToken, process.env.SECRET)
     const updatePoem = new Poem({ ...poem[0]._doc, likes: poem[0].likes + 1 })
 
-    await api.put(`/api/poems/${poem[0]._id}/${true}`)
+    await api.put(`/api/poems/child/${poem[0]._id}/${true}`)
       .set('authorization', `bearer ${token}`)
       .send(updatePoem)
       .expect(200)
@@ -117,7 +125,7 @@ describe('tests with initial poem', () => {
     const token = jwt.sign(userForToken, process.env.SECRET)
     const updatePoem = new Poem({ ...poem[0]._doc, content: 'changed line in poem' })
 
-    await api.put(`/api/poems/${poem[0]._id}/${false}`)
+    await api.put(`/api/poems/child/${poem[0]._id}/${false}`)
       .set('authorization', `bearer ${token}`)
       .send(updatePoem)
       .expect(200)

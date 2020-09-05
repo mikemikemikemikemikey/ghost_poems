@@ -5,4 +5,9 @@ const getUser = async (id) => {
   return response.data
 }
 
-export default {getUser}
+const newUser = async (user) => {
+  const response = await axios.post('/api/users/', user)
+  return response.data
+}
+
+export default {getUser, newUser}

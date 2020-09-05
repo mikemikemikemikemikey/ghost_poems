@@ -1,4 +1,7 @@
 import React from 'react'
+import {SelectStyle, Option} from './Style'
+
+
 
 const Select = ({options, value, setValue, label}) => {
 const handleChange = (event) => {
@@ -8,15 +11,14 @@ const handleChange = (event) => {
 return (
   <form >
     <label> {label} 
-    <select value = {value} onChange = {handleChange}>
+    <SelectStyle value = {value} onChange = {handleChange}>
       {options.map((o) => 
-        <option value = {o} key = {o}>{o}</option>
+        <Option value = {o} key = {o}>{o}</Option>
       )}
-    </select>
+    </SelectStyle>
     </label>
   </form>
 )
-}
 
 export default Select
 

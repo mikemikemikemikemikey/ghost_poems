@@ -1,38 +1,229 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/*main layout */
+.main-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  background-color: black;
+  color: #f2e8bf;
+  min-height: 100vh;
+ 
+}
+
+.left-col {
+  max-width: 45%;
+  align-self: flex-stretch;
+  border-style: solid;
+  border-color: pink;
+  margin-bottom: 0em;
+
+}
+.title {
+  margin: auto;
+}
+.home-page {
+  width: 60%;
+  border-style: solid;
+  border-color: pink;
+}
+.side-content {
+  width: 60%;
+  margin-left: 2em;
+  border-style: solid;
+  align-self: stretch;
+  border-color: pink;
+}
+.ghost-image {
+  max-width: 100%;
+  display: block;
+  opacity: 70%
+
+}
+.ghost-div {
+margin: auto;
+align-self: flex-start;
+position: sticky;
+border-style: solid;
+border-color: pink;
+top: 42%;
+max-width: 50%;
+min-width: 200px;
+pointer-events: none;
+}
+.sort-bar {
+  border-style: solid;
+  margin-bottom: 1.5em;
+border-color: pink;
+position: relative;
+}
+.sort-span {
+  border-style: solid;
+  border-color: pink;
+  position: relative;
+  bottom: -1.5em;
+  left: 2em;
+}
+.new-content {
+  margin: 1em;
+  margin-right: 4em;
+  margin-left: 4em;
+  padding: 1em;
+  border-style: solid;
+  border-color: pink;
+}
+.main-message{
+  width: 50%;
+  max-height: fit-content;
+  position: absolute;
+  top: -3%;
+  border-style: solid;
+  border-color: pink;
+}
+
+/*type*/
+.poem-title {
   color: white;
+  font-size: 1.25em;
+  opacity: 70%;
+  margin-bottom: 1em;
+}
+h2 {
+  color: white;
+  opacity: 70%;
+}
+.link{
+  color: white;
+  margin-top: .35rem;
+
+}
+.header-span {
+  
+  margin: 0;
+
+}
+.link:hover{
+  color: gray;
+}
+.navigation {
+display: flex;
+justify-content: space-evenly;
+flex-wrap: wrap;
+background: transparent;
+padding: 1em;
+position: sticky;
+top: 0;
+z-index: 2;
+text-align: center;
+}
+.title-buttons {
+  font-size: 24px;
+}
+/*sorter*/
+.dark-theme {
+  --styled-select-placeholder__color: #999;
+  --styled-select__color: white;
+  --styled-select__background-color: #555;
+  --styled-select__border-color: black;
+  --styled-select__border-width: 3px;
+  --styled-select__border-radius: 5px;
+
+  --styled-select-control__border-color--focused: black;
+  --styled-select-menu-outer__margin: 10px 0 0 0;
+  --styled-select-menu-outer__padding: 0;
+  --styled-select-menu-outer__background-color: #555;
+  --styled-select-menu-outer__border-color: black;
+  --styled-select-menu-outer__box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --styled-select-menu-outer__border-style: solid;
+  --styled-select-menu-outer__border-width: 3px;
+ 
+  --styled-select-option__background-color: #444;
+ 
+  --styled-select-option__color--focused: #eee;
+  --styled-select-option__background-color--focused: #333;
+ 
+  --styled-select-option__color--selected: #eee;
+  --styled-select-option__background-color--selected: #444;
+  max-width: 60%;
+  margin: auto;
+  margin-left: 5em;
 }
 
-.App-link {
-  color: #61dafb;
-}
+@media (max-width: 800px) {
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .main-page {
+    font-size: 16px;
+    flex-direction: column;
+    justify-content: center;
   }
-  to {
-    transform: rotate(360deg);
+  .sort-span{
+    font-size: 20px;
   }
+  .left-col {
+    max-width: 97%;
+    width: 97%;
+    align-self: flex-start;
+    margin: auto;
+    margin-bottom: -1em;
+  }
+  .home-page {
+    width: 100%;
+    align-self: flex-start;
+    padding: 0;
+    margin: auto;
+    opacity: 80%;
+    z-index: 2;
+  }
+  .navigation{
+    position: relative;
+    margin-bottom: -2em;
+  }
+  .ghost-div {
+    position: absolute;
+    position: fixed;
+    left: 40%;
+    z-index: 0;
+    opacity: 20%;
+  }
+  .dark-theme {
+    margin-left: 6em;
+    opacity: 70%;
+    --styled-select__color: transparent;
+    --styled-select-option__color--focused: white;
+    --styled-select-option__color--selected: white;
+    z-index: 2;
+    
+  }
+  .sort-span {
+    bottom: -2em;
+  }
+  .title {
+    margin-bottom: -1em;
+  }
+  .styled-poem {
+    font-size: 16px;
+    padding: 1px;
+  }
+  .main-message{
+    width: 80%;
+    position: absolute;
+    top: 20%;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .link {
+   
+  }
+  .header-span {
+    margin-top: .35rem;
+  }
+  .title-buttons {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .enjoy-button {
+  
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
 }

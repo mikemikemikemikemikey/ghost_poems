@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 const { TestScheduler } = require('jest')
 const Poem = require('../models/poem')
 const User = require('../models/user')
-const { findOneAndUpdate } = require('../models/user')
 
 poemRouter.get('/', async (request, response) => {
   const poems = await Poem.find({})

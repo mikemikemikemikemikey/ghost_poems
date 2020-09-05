@@ -78,7 +78,7 @@ describe('when there is initially one user in db', () => {
       title: 'test poem',
       content: 'a poem line here',
       user: users[0]._id,
-      head: true,
+      head: null,
       tail: true,
     })
 

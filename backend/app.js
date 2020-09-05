@@ -29,6 +29,11 @@ app.use(express.json())
 app.use(middleware.tokenExtractor)
 app.use('/api/poems', poemRouter)
 app.use('/api/users', usersRouter)
+
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./routes/testing')
+  app.use('/api/testing', testingRouter)
+}
 app.use('/api/login', loginRouter)
 app.use('/', indexRouter)
 app.use(middleware.errorHandler)
