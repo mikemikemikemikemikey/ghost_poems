@@ -34,7 +34,7 @@ const NewPoem = () => {
         }, 5000)
       }
     } else {
-      setMessage({ message: 'please login to create a poem', error: true })
+      setMessage({ message: 'please login to create a rap', error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })
       }, 5000)
