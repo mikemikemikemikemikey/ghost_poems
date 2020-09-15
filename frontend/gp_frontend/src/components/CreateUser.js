@@ -26,6 +26,13 @@ const CreateUser = () => {
       }, 5000)
       return
     }
+    if(password.value.length <= 3){
+      setMessage({ message: 'need password length longer than 3 characters', error: true })
+      setTimeout(() => {
+        setMessage({ message: null, error: false })
+      }, 5000)
+      return
+    }
     try {
       await userService.newUser({ username: username.value, password: password.value })
       dispatch(newMessage(`new user ${username.value} created!`, false))
@@ -39,7 +46,7 @@ const CreateUser = () => {
       )
       poemService.setConfig(user.token)
       dispatch(loginUser(user))
-      history.push('/')
+      history.push('/home')
     } catch (err) {
       setMessage({ message: 'username needs to be unique', error: true })
       setTimeout(() => {
@@ -48,17 +55,18 @@ const CreateUser = () => {
     }
   }
   return (
-    <div className="new-content">
+    <div className="login-and-new">
       <h2>create user</h2>
       <form onSubmit={createUser}>
-        <div>
+        <label classname="login-and-new-input">
           username &nbsp;
           <Input {...username} />
-        </div>
-        <div>
+        </label>
+        
+        <label>
           password &nbsp;
           <Input {...password} />
-        </div>
+        </label>
         <Button type="submit" data-cy="create-button">create!</Button>
       </form>
       <Notification message={message} />

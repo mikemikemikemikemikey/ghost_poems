@@ -17,21 +17,19 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-
+    
     try {
       const user = await loginService.login({
         username: username.value, password: password.value,
       })
-
       window.localStorage.setItem(
         'loggedPoemUser', JSON.stringify(user),
       )
       poemService.setConfig(user.token)
-
       dispatch(loginUser(user))
       username.onSubmit()
       password.onSubmit()
-      history.push('/')
+      history.push('/home')
     } catch (exception) {
       setMessage({ message: 'wrong credentials', error: true })
       setTimeout(() => {
@@ -41,17 +39,17 @@ const Login = () => {
   }
 
   return (
-    <div className="new-content">
-      <h2>Log in to ghost raps</h2>
-      <form onSubmit={handleLogin} data-cy="loginForm">
-        <div>
-          username
-          <Input {...username} data-cy="username" />
-        </div>
-        <div>
-          password
-          <Input {...password} data-cy="password" />
-        </div>
+    <div className="login-and-new">
+      <h2>log in to ghost raps</h2>
+      <form onSubmit={handleLogin} data-cy="loginForm" >
+        <label classname="login-and-new-input">
+          username &nbsp;
+          <Input {...username} data-cy="login-username" />
+        </label>
+        <label>
+          password &nbsp;
+          <Input {...password} data-cy="login-password" />
+        </label>
         <Button type="submit" data-cy="login-button">login</Button>
       </form>
       <Notification message={message} />

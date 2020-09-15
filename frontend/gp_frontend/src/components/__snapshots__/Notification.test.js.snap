@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when error 1`] = `
+<div
+  className="error"
+  data-cy="message"
+  style={
+    Object {
+      "background": "lightgrey",
+      "borderRadius": 5,
+      "borderStyle": "solid",
+      "color": "red",
+      "fontSize": 20,
+      "marginBottom": 0,
+      "marginTop": 8,
+      "maxHeight": 20,
+      "padding": 10,
+      "paddingBottom": 14,
+    }
+  }
+>
+  test message error
+</div>
+`;
+
+exports[`renders correctly when success 1`] = `
+<div
+  className="error"
+  data-cy="message"
+  style={
+    Object {
+      "background": "lightgrey",
+      "borderRadius": 5,
+      "borderStyle": "solid",
+      "color": "green",
+      "fontSize": 20,
+      "marginBottom": 0,
+      "marginTop": 8,
+      "maxHeight": 20,
+      "padding": 10,
+      "paddingBottom": 14,
+    }
+  }
+>
+  test message success
+</div>
+`;

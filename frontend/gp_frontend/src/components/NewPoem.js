@@ -19,13 +19,20 @@ const NewPoem = () => {
   const createPoem = async (event) => {
     event.preventDefault()
     if (user) {
+      if (title.value === '' || content.value === '') {
+        setMessage({ message: 'ghostin too hard', error: true })
+        setTimeout(() => {
+          setMessage({ message: null, error: false })
+        }, 5000)
+        return
+      }
       try {
         await poemService.create({ title: title.value, content: content.value })
         dispatch(newMessage(`new rap ${title.value} created!`, false))
         title.onSubmit()
         content.onSubmit()
         socket.emit('data_request')
-        history.push('/')
+        history.push('/home')
       } catch (err) {
         console.log(err)
         setMessage({ message: err, error: true })
@@ -56,7 +63,9 @@ const NewPoem = () => {
         </div>
         <Button type="submit" data-cy="create-button">create!</Button>
       </form>
-      <Notification message={message} />
+      <div className = 'notification-wrapper'>
+        <Notification message={message} />
+      </div>
     </div>
   )
 }

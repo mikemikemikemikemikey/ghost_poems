@@ -15,15 +15,15 @@ const getAll = () => {
 const editContent = async (content, id) => {
   const [request, error] = await handle(axios.put(`/api/poems/child/${id}`, {content}, config))
   if(request) return
-  if(error.response.data.error) throw 'sorry lines are too long'
-  throw 'wrong user'
+  if(error.response.status === 401) throw 'wrong user'
+  throw 'sorry lines are too long'
 }
 const editTitle = async (title, id) => {
   console.log('test1')
  const [request, error] = await handle(axios.put(`/api/poems/title/${id}`, {title}, config ))
  if(request) return
- if(error.response.data.error) throw 'sorry title too long'
- throw 'wrong user'
+ if(error.response.status === 401) throw 'wrong user'
+ throw 'sorry too long'
 }
 const addLike = async (poem) => {
   await axios.put(`/api/poems/child/${poem._id}/${true}`, poem, config)

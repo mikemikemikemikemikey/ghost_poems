@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import Select from 'react-styled-select'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, NavLink } from 'react-router-dom'
 import { initializePoems } from './reducers/poemReducer'
 import Poem from './components/Poem'
 import Login from './components/Login'
@@ -73,10 +73,14 @@ function App() {
           <img className="ghost-image title" src={ghostraps} alt="title" />
 
           <div className="navigation">
-            <Link class="link" to="/" data-cy="link-home">home</Link>
-            <Link class="link" to="/new_rap" data-cy="link-new-rap">new rap</Link>
-            <Link class="link" to="/about">about</Link>
-            {user ? null : <Link class="link" to="/create_user" data-cy = 'link-new-user'>new user</Link>}
+            <NavLink  activeStyle={{ fontWeight: "bold",color: "gray" }} 
+              className="link" to="/home" data-cy="link-home">home</NavLink>
+            <NavLink activeStyle={{ fontWeight: "bold",color: "gray" }}
+              className="link" to="/new_rap" data-cy="link-new-rap">new rap</NavLink>
+            <NavLink activeStyle={{ fontWeight: "bold",color: "gray" }}
+              className="link" to="/about">about</NavLink>
+            {user ? null : <NavLink activeStyle={{ fontWeight: "bold",color: "gray" }}
+                className="link" to="/create_user" data-cy = 'link-new-user'>new user</NavLink>}
             {user
               ? (
                 <span className="header-span">
@@ -87,7 +91,8 @@ function App() {
                   <Button onClick={handleLogout}>logout</Button>
                 </span>
               )
-              : <Link class="link" to="/login" data-cy = 'link-login'>login</Link>}
+              : <NavLink activeStyle={{ fontWeight: "bold",color: "gray" }}
+                  className="link" to="/login" data-cy = 'link-login'>login</NavLink>}
           </div>
 
           <div className="sort-bar">
@@ -131,7 +136,7 @@ function App() {
             <CreateUser />
           </div>
         </Route>
-        <Route path="/">
+        <Route path="/home">
           <div className="home-page">
 
             <p className="main-message">

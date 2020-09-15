@@ -27,7 +27,7 @@ const PoemTitle = ({ poem }) => {
     } catch (err) {
       setEdit(false)
       let mess = err
-      if (err === 'wrong user') mess = `only ${poem.user.username} can edit this content`
+      if (err === 'wrong user') mess = `only ${poem.user.username} can edit this`
       setMessage({ message: mess, error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })
@@ -44,13 +44,13 @@ const PoemTitle = ({ poem }) => {
     <div className="poem-content">
       {edit ? (
         <form onSubmit={submitEdit}>
-          <div><Input {...editedContent} /></div>
+          <div><Input {...editedContent} data-cy = 'title-input'/></div>
           <div className="title-buttons">
-            <Button type="submit">edit</Button>
+            <Button type="submit" data-cy = 'title-submit'>edit</Button>
             <Button onClick={cancel}>nevermind</Button>
           </div>
         </form>
-      ) : <div className="poem-title" onClick={editContent}>{content}</div>}
+      ) : <div className="poem-title" onClick={editContent} data-cy = 'poem-title'>{content}</div>}
       <Notification message={message} />
     </div>
   )

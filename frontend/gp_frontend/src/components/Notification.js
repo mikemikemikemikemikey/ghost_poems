@@ -11,7 +11,6 @@ const Notification = ({ message }) => {
     paddingBottom: 14,
     marginTop: 8,
     marginBottom: 0,
-    maxHeight: 20,
   }
 
   if (!message.error) errorStyle.color = 'green'
@@ -20,7 +19,7 @@ const Notification = ({ message }) => {
   }
 
   return (
-    <div style={errorStyle} className="error">
+    <div style={errorStyle} className="error" data-cy='message'>
       {message.message}
     </div>
   )

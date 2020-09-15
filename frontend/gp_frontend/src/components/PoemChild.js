@@ -25,7 +25,7 @@ const PoemChild = ({ poem }) => {
     } catch (err) {
       setEdit(false)
       let mess = err
-      if (err === 'wrong user') mess = `only ${poem.user.username} can edit this content`
+      if (err === 'wrong user') mess = `only ${poem.user.username} can edit this`
       setMessage({ message: mess, error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })

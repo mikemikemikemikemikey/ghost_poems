@@ -33,7 +33,7 @@ z-index: 2;
 text-align: center;
 `
 export const Input = styled.input`
-background-color: black;
+background-color: transparent;
 border: 2px solid #f2e8bf;
 font-size 1em;
 color: #f2e8bf;
@@ -44,8 +44,6 @@ export const StyledPoem = styled.div`
 max-width: 80%;
 background-color: transparent;
 border-bottom: 2px solid gray;
-padding: 1em;
-margin-left: 2em;
 
 `
 
@@ -58,7 +56,7 @@ z-index: 1;
 `
 
 export const StyledTextArea = styled.textarea`
-background-color: black;
+background-color: transparent;
 border: 2px solid #f2e8bf;
 font-size 16px;
 color: #f2e8bf;

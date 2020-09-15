@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import PoemChild from './PoemChild'
 import PoemTitle from './PoemTitle'
@@ -15,6 +15,7 @@ const Poem = ({ poem }) => {
   const [enjoyStyle, setEnjoyStyle] = useState(false)
   const [toggle, setToggle] = useState({ show: false, label: 'contribute' })
   const addedContent = useField('text')
+  const enjoyB = useRef(null)
 
   useEffect(() => {
     async function userLikes() {
@@ -27,8 +28,10 @@ const Poem = ({ poem }) => {
   }, [poem, user])
 
   const addEnjoy = async () => {
+    enjoyB.current.blur()
     try {
       if (!user) throw 'please login to enjoy :)'
+      
       if (!enjoyStyle) {
         await poemService.addLike({
           ...poem,
@@ -36,10 +39,12 @@ const Poem = ({ poem }) => {
           user: poem.user.id,
           children: poem.children ? poem.children.map((c) => c._id) : null,
         })
+
         socket.emit('data_request')
         setEnjoyStyle(true)
       } else {
         await poemService.removeLike(poem._id)
+        console.log('test remove')
         socket.emit('data_request')
         setEnjoyStyle(false)
       }
@@ -85,7 +90,7 @@ const Poem = ({ poem }) => {
 
   return (
     <div className="styled-poem">
-      <StyledPoem class="styled-poem">
+      <StyledPoem >
         <h2><PoemTitle poem={poem} /></h2>
         <PoemChild poem={poem} key={poem._id} />
         { poem.children ? poem.children.map((c) => <PoemChild poem={c} key={c._id} />) : null }
@@ -93,9 +98,9 @@ const Poem = ({ poem }) => {
           ? (
             <div>
               <form onSubmit={submitContent}>
-                <div><StyledTextArea rows="2" cols="30" {...addedContent} /></div>
+                <div><StyledTextArea rows="2" cols="30" {...addedContent} data-cy='content-input'/></div>
                 <div>
-                  <Button type="submit">submit!</Button>
+                  <Button type="submit" data-cy='content-submit'>submit!</Button>
                   <Button onClick={toggleView}>{toggle.label}</Button>
                 </div>
               </form>
@@ -106,8 +111,8 @@ const Poem = ({ poem }) => {
           enjoys:
           {poem.likes}
           {' '}
-          <Button onClick={() => addEnjoy()} enjoyed={enjoyStyle}> enjoy </Button>
-          {toggle.show ? null : <Button onClick={toggleView}>{toggle.label}</Button>}
+          <Button onClick={() => addEnjoy()} ref={enjoyB} enjoyed={enjoyStyle} data-cy = 'enjoy'> enjoy </Button>
+          {toggle.show ? null : <Button onClick={toggleView} data-cy = 'contribute-toggle'>{toggle.label}</Button>}
         </div>
         <Notification message={message} />
       </StyledPoem>
