@@ -6,7 +6,7 @@ import { initializePoems } from '../reducers/poemReducer'
 import Notification from './Notification'
 import { Input, Button } from './Style'
 
-const PoemTitle = ({ poem }) => {
+const PoemTitle = ({ poem, user}) => {
   const dispatch = useDispatch()
   const [message, setMessage] = useState({ message: null, error: false })
   const [edit, setEdit] = useState(false)
@@ -19,15 +19,16 @@ const PoemTitle = ({ poem }) => {
   }
   const submitEdit = async (event) => {
     try {
+      if(!user) throw new Error('please login to edit')
       event.preventDefault()
-      if (!editedContent.value) throw 'ghostin too hard'
+      if (!editedContent.value) throw new Error('ghostin too hard')
       await poemService.editTitle(editedContent.value, poem._id)
       setEdit(false)
       dispatch(initializePoems())
     } catch (err) {
       setEdit(false)
-      let mess = err
-      if (err === 'wrong user') mess = `only ${poem.user.username} can edit this`
+      let mess = err.message
+      if (err.message === 'wrong user') mess = `only ${poem.user.username} can edit this`
       setMessage({ message: mess, error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })

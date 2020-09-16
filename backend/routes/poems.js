@@ -9,7 +9,10 @@ const User = require('../models/user')
 poemRouter.get('/', async (request, response) => {
   const poems = await Poem.find({})
     .populate('user', { username: 1 })
-    .populate('children', { content: 1 })
+    .populate({path: 'children', 
+              populate: { 
+              path: 'user'
+              }})
   response.json(poems)
 })
 

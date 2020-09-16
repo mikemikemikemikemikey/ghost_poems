@@ -30,7 +30,7 @@ const Poem = ({ poem }) => {
   const addEnjoy = async () => {
     enjoyB.current.blur()
     try {
-      if (!user) throw 'please login to enjoy :)'
+      if (!user) throw new Error('please login to enjoy :)')
       
       if (!enjoyStyle) {
         await poemService.addLike({
@@ -49,7 +49,8 @@ const Poem = ({ poem }) => {
         setEnjoyStyle(false)
       }
     } catch (err) {
-      setMessage({ message: err, error: true })
+      console.log(err)
+      setMessage({ message: err.message, error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })
       }, 5000)
@@ -91,9 +92,9 @@ const Poem = ({ poem }) => {
   return (
     <div className="styled-poem">
       <StyledPoem >
-        <h2><PoemTitle poem={poem} /></h2>
-        <PoemChild poem={poem} key={poem._id} />
-        { poem.children ? poem.children.map((c) => <PoemChild poem={c} key={c._id} />) : null }
+        <h2><PoemTitle poem={poem} user={user}/></h2>
+        <PoemChild poem={poem} key={poem._id} user = {user}/>
+        { poem.children ? poem.children.map((c) => <PoemChild poem={c} key={c._id} user = {user}/>) : null }
         {toggle.show
           ? (
             <div>

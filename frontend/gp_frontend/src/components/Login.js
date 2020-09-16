@@ -29,7 +29,7 @@ const Login = () => {
       dispatch(loginUser(user))
       username.onSubmit()
       password.onSubmit()
-      history.push('/home')
+      history.push('/')
     } catch (exception) {
       setMessage({ message: 'wrong credentials', error: true })
       setTimeout(() => {

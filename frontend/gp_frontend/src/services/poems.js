@@ -15,15 +15,15 @@ const getAll = () => {
 const editContent = async (content, id) => {
   const [request, error] = await handle(axios.put(`/api/poems/child/${id}`, {content}, config))
   if(request) return
-  if(error.response.status === 401) throw 'wrong user'
-  throw 'sorry lines are too long'
+  if(error.response.status === 401) throw new Error('wrong user')
+  throw new Error('sorry lines are too long')
 }
 const editTitle = async (title, id) => {
   console.log('test1')
  const [request, error] = await handle(axios.put(`/api/poems/title/${id}`, {title}, config ))
  if(request) return
- if(error.response.status === 401) throw 'wrong user'
- throw 'sorry too long'
+ if(error.response.status === 401) throw new Error('wrong user')
+ throw new Error('sorry too long')
 }
 const addLike = async (poem) => {
   await axios.put(`/api/poems/child/${poem._id}/${true}`, poem, config)
@@ -32,9 +32,9 @@ const addContent = async (poem, head) => {
   const [request, error] = await handle(axios.post(`api/poems/${head}`, poem, config))
   if(request) return
   if(error.response) {
-    throw 'sorry lines are too long'
+    throw new Error('sorry lines are too long')
   }
-  throw 'error'
+  throw new Error('error')
 }
 const removePoem = async (poem) => {
   await axios.delete(`api/poems/${poem._id}`, config)
@@ -45,12 +45,12 @@ const create = async (poem) => {
   if(request) return request
     if(error.response) {
     if(error.response.data.error.includes('title')){
-        throw 'title is too long'
+        throw new Error('title is too long')
       } else if (error.response.data.error.includes('content')){
-      throw 'first lines are too long'
-      } else { throw 'error'}
+      throw new Error('first lines are too long')
+      } else { throw new Error( 'error')}
     }  
-    throw 'error'
+    throw new Error('error')
 }
 const removeLike = async (id) => {
   await axios.put(`api/poems/unlike/${id}`, null, config)

@@ -66,7 +66,7 @@ describe('login component', () => {
         expect(spy).toHaveBeenCalled()
         expect(component.container.querySelector('[data-cy=login-username]').value.username)
             .toBeUndefined()
-        expect(mockHistoryPush).toHaveBeenCalledWith('/home')
+        expect(mockHistoryPush).toHaveBeenCalledWith('/')
 
     })
 

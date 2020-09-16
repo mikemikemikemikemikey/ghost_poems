@@ -32,7 +32,7 @@ const NewPoem = () => {
         title.onSubmit()
         content.onSubmit()
         socket.emit('data_request')
-        history.push('/home')
+        history.push('/')
       } catch (err) {
         console.log(err)
         setMessage({ message: err, error: true })

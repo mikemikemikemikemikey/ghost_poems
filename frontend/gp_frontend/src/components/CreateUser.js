@@ -46,7 +46,7 @@ const CreateUser = () => {
       )
       poemService.setConfig(user.token)
       dispatch(loginUser(user))
-      history.push('/home')
+      history.push('/')
     } catch (err) {
       setMessage({ message: 'username needs to be unique', error: true })
       setTimeout(() => {
