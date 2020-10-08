@@ -7,7 +7,8 @@ const About = () => {
       a few lines. Then, anyone can contribute by adding lines. So create 
       an account, get creative, be inspired! If all goes according to plan I'll sell 
       the best raps to Drake (jokes)  
-      Shout out to <a href='//glowtxt.com'>Glowtxt</a> for the title image
+      Shout out to <a href='//glowtxt.com'>Glowtxt</a> for the title image. Pro tip - use commas at the 
+      end of your lines so the formatting looks nice
     </p>
   )
 }

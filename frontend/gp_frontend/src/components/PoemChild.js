@@ -10,6 +10,7 @@ const PoemChild = ({ poem, user }) => {
   const [edit, setEdit] = useState(false)
   const editedContent = useField('text')
   const { content } = poem
+  const formattedContent = content.split(',').filter(word => word.match('.+[^ ]') )
 
   const editContent = () => {
     setEdit(true)
@@ -42,7 +43,6 @@ const PoemChild = ({ poem, user }) => {
       await poemService.removePoem(poem)
       socket.emit('data_request')
     } catch (err) {
-      console.log(poem)
       setMessage({ message: `only ${poem.user.username} can delete this content`, error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })
@@ -63,7 +63,9 @@ const PoemChild = ({ poem, user }) => {
             <Button onClick={cancel}>nevermind</Button>
           </div>
         </form>
-      ) : <div onClick={editContent}>{content}</div>}
+      ) : <div onClick={editContent}>{formattedContent.map((item, i) => {
+        return <p key={i}>{item},</p>
+      })}</div>}
       <Notification message={message} />
     </div>
   )

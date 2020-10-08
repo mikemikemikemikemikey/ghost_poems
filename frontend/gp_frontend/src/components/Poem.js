@@ -80,7 +80,7 @@ const Poem = ({ poem }) => {
       setToggle({ show: false, label: 'contribute' })
       socket.emit('data_request')
     } catch (err) {
-      setMessage({ message: err, error: true })
+      setMessage({ message: err.message, error: true })
       setTimeout(() => {
         setMessage({ message: null, error: false })
       }, 5000)

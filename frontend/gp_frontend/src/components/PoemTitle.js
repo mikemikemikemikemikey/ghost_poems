@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import useField from '../hooks'
 import poemService from '../services/poems'
-import { initializePoems } from '../reducers/poemReducer'
 import Notification from './Notification'
 import { Input, Button } from './Style'
+import socket from '../services/socket'
 
 const PoemTitle = ({ poem, user}) => {
-  const dispatch = useDispatch()
   const [message, setMessage] = useState({ message: null, error: false })
   const [edit, setEdit] = useState(false)
   const editedContent = useField('text')
@@ -24,7 +22,7 @@ const PoemTitle = ({ poem, user}) => {
       if (!editedContent.value) throw new Error('ghostin too hard')
       await poemService.editTitle(editedContent.value, poem._id)
       setEdit(false)
-      dispatch(initializePoems())
+      socket.emit('data_request')
     } catch (err) {
       setEdit(false)
       let mess = err.message

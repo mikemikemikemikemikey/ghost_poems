@@ -35,7 +35,7 @@ const NewPoem = () => {
         history.push('/')
       } catch (err) {
         console.log(err)
-        setMessage({ message: err, error: true })
+        setMessage({ message: err.message, error: true })
         setTimeout(() => {
           setMessage({ message: null, error: false })
         }, 5000)

@@ -2,7 +2,6 @@ const express = require('express')
 
 const poemRouter = express.Router()
 const jwt = require('jsonwebtoken')
-const { TestScheduler } = require('jest')
 const Poem = require('../models/poem')
 const User = require('../models/user')
 

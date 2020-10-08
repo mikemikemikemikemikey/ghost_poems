@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import Select from 'react-styled-select'
-import { Switch, Route, NavLink } from 'react-router-dom'
+import { Switch, Route, NavLink, useLocation } from 'react-router-dom'
 import { initializePoems } from './reducers/poemReducer'
 import Poem from './components/Poem'
 import Login from './components/Login'
@@ -22,6 +22,7 @@ function App() {
   const user = useSelector((state) => state.user)
   const [sort, setSort] = useState('new')
   const [viewSort, setViewSort] = useState('flex')
+  const location = useLocation()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedPoemUser')
@@ -39,12 +40,12 @@ function App() {
   }, [dispatch, message])
   
   useEffect(() => {
-    if(window.location.pathname === '/'){
+    if(location.pathname === '/'){
       setViewSort('flex')
     } else {
       setViewSort('none')
     }
-  },[])
+  },[location])
 
   const handleLogout = () => {
     dispatch(logoutUser())

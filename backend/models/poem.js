@@ -7,7 +7,7 @@ mongoose.set('useCreateIndex', true)
 const poemSchema = new mongoose.Schema({
 
   title: { type: String, maxlength: 50 },
-  content: { type: String, maxlength: 100 },
+  content: { type: String, maxlength: 300 },
   likes: { type: Number, default: 0 },
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -19,7 +19,6 @@ const editContent = async (content, id) => {
   throw new Error('sorry lines are too long')
 }
 const editTitle = async (title, id) => {
-  console.log('test1')
  const [request, error] = await handle(axios.put(`/api/poems/title/${id}`, {title}, config ))
  if(request) return
  if(error.response.status === 401) throw new Error('wrong user')
